@@ -54,9 +54,16 @@ jobs:
           path: release/GATEPrep-2027-Release.apk
           retention-days: 30
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ inputs.tag_name || (github.ref_type == 'tag' && github.ref_name || 'v1.0.0') }}
-          files: release/GATEPrep-2027-Release.apk
-          generate_release_notes: true
+      - name: Create or Update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ inputs.tag_name || 'v1.0.0' }}"
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            TAG="${{ github.ref_name }}"
+          fi
+          echo "Publishing release for tag: $TAG"
+          gh release create "$TAG" release/GATEPrep-2027-Release.apk \
+            --title "GATEPrep 2027 $TAG" \
+            --notes "GATEPrep 2027 Release ($TAG). Download the attached GATEPrep-2027-Release.apk to install on Android." \
+            --clobber
