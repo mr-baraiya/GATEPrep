@@ -39,6 +39,10 @@ jobs:
         run: |
           echo "GEMINI_API_KEY=\"${{ secrets.GEMINI_API_KEY || 'YOUR_GEMINI_API_KEY' }}\"" > .env
 
+      - name: Generate Keystore for CI
+        run: |
+          keytool -genkeypair -v -keystore release.keystore -alias upload -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=GATEPrep, O=GATEPrep, C=IN"
+
       - name: Build Release APK
         run: ./gradlew assembleRelease --no-daemon
 
