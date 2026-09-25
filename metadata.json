@@ -1,0 +1,7 @@
+{
+  "name": "GATE 2027 Prep",
+  "description": "Comprehensive GATE 2027 preparation companion for CSE and DA with countdown, syllabus tracker, study planner, PYQs, mock tests, revision notes, notifications, and AI recommendation engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
